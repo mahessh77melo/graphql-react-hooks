@@ -11,7 +11,8 @@ const app = express();
 app.use(cors());
 
 mongoose.connect(
-	"mongodb+srv://magesh:mongo123@mycluster.rhps1.mongodb.net/mycluster?retryWrites=true&w=majority"
+	"mongodb+srv://magesh:mongo123@mycluster.rhps1.mongodb.net/mycluster?retryWrites=true&w=majority",
+	{ useNewUrlParser: true, useUnifiedTopology: true }
 );
 mongoose.connection.once("open", () => {
 	console.log("Connected to the database");
