@@ -1,0 +1,3 @@
+[submodule "front-end-react"]
+	path = front-end-react
+	url = https://github.com/mahessh77melo/gql-server.git
