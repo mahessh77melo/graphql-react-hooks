@@ -9,8 +9,8 @@ const {
 	GraphQLList,
 } = graphql; // graphql datatypes
 const _ = require("lodash");
-const Book = require("../models/book");
-const Author = require("../models/author");
+const Book = require("../models/book"); // mongodb schema
+const Author = require("../models/author"); // mongodb schema
 
 const BookType = new GraphQLObjectType({
 	name: "Book",
@@ -44,6 +44,8 @@ const AuthorType = new GraphQLObjectType({
 	}),
 });
 
+/* fields are defined in the form of functions returning the appropriate values because each one is dependent on the other. So neither one of them can be written first. SO, when they are inside function scope, it solves the issue, atleast that's what he the british guy said. */
+
 const RootQuery = new GraphQLObjectType({
 	name: "RootQueryType",
 	fields: {
@@ -51,32 +53,30 @@ const RootQuery = new GraphQLObjectType({
 			type: BookType,
 			args: { id: { type: GraphQLID } },
 			resolve(parent, args) {
-				// Code to get the data from the db or other source
 				// return _.find(books, { id: args.id });
-				return Book.findById(args.id);
+				return Book.findById(args.id); // mongoose method
 			},
 		},
 		author: {
 			type: AuthorType,
 			args: { id: { type: GraphQLID } },
 			resolve(parent, args) {
-				//Code to get the data from the db or other sources
 				// return _.find(authors, { id: args.id });
-				return Author.findById(args.id);
+				return Author.findById(args.id); // mongoose method
 			},
 		},
 		books: {
 			type: new GraphQLList(BookType),
 			resolve(parent, args) {
 				// return books;
-				return Book.find();
+				return Book.find(); // returns every book if no paramter is given.
 			},
 		},
 		authors: {
 			type: new GraphQLList(AuthorType),
 			resolve(parent, args) {
 				// return authors;
-				return Author.find();
+				return Author.find(); // returns every author if no parameter is given
 			},
 		},
 	},

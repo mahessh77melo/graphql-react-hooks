@@ -1,6 +1,7 @@
 const express = require("express");
 const { graphqlHTTP } = require("express-graphql");
 const schema = require("./schema/schema");
+// npm package for easy use of mongodb
 const mongoose = require("mongoose");
 const cors = require("cors");
 // mongoose.useNewUrlParser = true;
@@ -17,6 +18,7 @@ mongoose.connect(
 mongoose.connection.once("open", () => {
 	console.log("Connected to the database");
 });
+// link for writing manual graphql queries with graphiql
 app.use("/graphql", graphqlHTTP({ schema, graphiql: true }));
 
 app.listen(4000, () => {

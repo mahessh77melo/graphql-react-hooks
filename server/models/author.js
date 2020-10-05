@@ -6,3 +6,4 @@ const authorSchema = new Schema({
 	age: Number,
 });
 module.exports = mongoose.model("Author", authorSchema);
+/* this is not a graphql schema. this is a mongodb schema. */
